@@ -25,7 +25,7 @@ public class WebPageLinkExtractor
             return;
         }
 
-        // Äußere Schleife
+        // Äußere Schleife 1111
         // Alle Links die mit /anime/stream/ anfangen aus dem HTML-Code extrahieren
         var links = htmlDoc.DocumentNode.SelectNodes("//a")
             .Where(node => node.Attributes.Contains("href") && node.Attributes["href"].Value.StartsWith("/anime/stream/"))
@@ -68,10 +68,14 @@ public class WebPageLinkExtractor
 
                 // Wenn im Titel "Stream anschauen" enthalten ist, diesen entfernen
                 if (titles[i].Contains(" Stream anschauen")) { titles[i] = titles[i].Replace(" Stream anschauen", ""); }
- 
-                    // Ladebalken anzeigen
-                    Console.SetCursorPosition(0, Console.CursorTop);
-                    for (int p = 0; p < progress; p++)
+
+                // Ladebalken anzeigen
+                Console.SetCursorPosition(0, 0);
+                Console.WriteLine("┌────────┬─────────────────────────────────────────────────────────────────────────────────────────────────────┐");
+                Console.WriteLine("│        │                                                                                                     │");
+                Console.WriteLine("└────────┴─────────────────────────────────────────────────────────────────────────────────────────────────────┘");
+                Console.SetCursorPosition(10, 1);
+                for (int p = 0; p < progress; p++)
                     {
                         Console.Write("▓");
                     }
@@ -84,19 +88,20 @@ public class WebPageLinkExtractor
                     {
                         Console.Write("░");
                     }
+                Console.SetCursorPosition(1, 1);
                     if (progress < 10)
                         {
-                            Console.Write(" [   " + progress + "% ]");
+                            Console.Write("[   " + progress + "% ]");
                         }
                     else if (progress > 9 && progress < 100)
                         {
-                            Console.Write(" [  " + progress + "% ]");
+                            Console.Write("[  " + progress + "% ]");
                         }
                     else if (progress > 99)
                         {
-                            Console.Write(" [ " + progress + "% ]");
+                            Console.Write("[ " + progress + "% ]");
                         }
-
+                Console.SetCursorPosition(0, 3);
                     // Fortschritt erhöhen
                     progress = (int)(Math.Round(100 * j / titles.Count));
 
