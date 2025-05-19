@@ -27,13 +27,13 @@ public class WebPageLinkExtractor
 
         // Äußere Schleife 1111
         // Alle Links die mit /anime/stream/ anfangen aus dem HTML-Code extrahieren
-        var links = htmlDoc.DocumentNode.SelectNodes("//a")
+        var links = htmlDoc.DocumentNode.SelectNodes("//a")?
             .Where(node => node.Attributes.Contains("href") && node.Attributes["href"].Value.StartsWith("/anime/stream/"))
             .Select(node => node.Attributes["href"].Value)
             .ToList();
 
         // Alle Titel zu den zugehörigen Links auslesen
-        var titles = htmlDoc.DocumentNode.SelectNodes("//a")
+        var titles = htmlDoc.DocumentNode.SelectNodes("//a")?
             .Where(node => node.Attributes.Contains("href") && node.Attributes["href"].Value.StartsWith("/anime/stream/"))
             .Select(node => node.Attributes["title"].Value)
             .ToList();
@@ -121,7 +121,7 @@ public class WebPageLinkExtractor
                 }
 
                 // Alle img tags auslesen aus einer bestimmten Anime Serie
-                var srcs = htmlDocinner.DocumentNode.SelectNodes("//img")
+                var srcs = htmlDocinner.DocumentNode.SelectNodes("//img")?
                     .Where(img => img.Attributes.Contains("src") && img.Attributes["src"].Value.StartsWith("/public/img/german.svg"))
                     .Select(img => img.Attributes["src"].Value)
                     .ToList();
